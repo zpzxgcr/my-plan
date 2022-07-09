@@ -5,32 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/vant@3/lib/index.css" />
-    <title>训练计划安排</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/vant/3.5.2/index.css" rel="stylesheet">
+    <title>训练计划</title>
     <style>
+        :root {
+
+            --van-calendar-info-font-size: 18px
+        }
         #app {
             width: 100vw;
             height: 100vh;
-        }
+            max-width: 640px;
+            margin: 0 auto;
+}
         .xiong {
             background: url('./images/wotui.gif') no-repeat;
-            background-size: 80%;
+            background-size:76%;
                 background-position: bottom;
         }
          .bei {
             background: url('./images/yingla.gif') no-repeat;
-            background-size: 80%;
-                background-position: bottom;
+            background-size:76%;
+            background-position: bottom;
         }
          .tui {
             background: url('./images/shendun.gif') no-repeat;
-            background-size: 80%;
+            background-size:76%;
             background-position: bottom;
         }
         .xiuxi {
             background: url('./images/xiuxi.gif') no-repeat;
-            background-size: 80%;
+            background-size:76%;
             background-position: bottom;
+        }
+        .today {
+            font-weight: bold;
+            color: #07c160 !important;
         }
     </style>
 </head>
@@ -41,14 +51,15 @@
 </div>
 
 <!-- 引入 Vue 和 Vant 的 JS 文件 -->
-<script src="https://fastly.jsdelivr.net/npm/vue@3"></script>
-<script src="https://fastly.jsdelivr.net/npm/vant@3/lib/vant.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.10/vue.global.prod.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/vant/3.5.2/vant.min.js"></script>
 <script>
     // 在 #app 标签下渲染一个按钮组件
     const app = Vue.createApp({
           setup() {
             const formatter = (day) => {
                 const date = day.date.getDate();
+                const moneth =  day.date.getMonth();
                 const list = [
                     {
                         className: 'xiong',
@@ -75,8 +86,10 @@
                     day = list[list.length - 1]
                 }
                  day.topInfo = date;
-                 if (date === new Date().getDate()) {
+                 if (date === new Date().getDate() && moneth === new Date().getMonth() ) {
+
                     day.topInfo = '今天'
+                    day.className += ' today'
                  }
                 return day;
             };
@@ -90,7 +103,7 @@
             safe-area-inset-top
             color="#1989fa"
             :formatter="formatter"
-            title="训练计划安排"
+            :show-title="false"
             :poppable="false"
             :show-confirm="false"
         />
