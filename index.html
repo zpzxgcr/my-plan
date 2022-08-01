@@ -57,10 +57,15 @@
     // 在 #app 标签下渲染一个按钮组件
     const app = Vue.createApp({
           setup() {
+            let index = 0;
             const formatter = (day) => {
                 const date = day.date.getDate();
                 const moneth =  day.date.getMonth();
                 const list = [
+                     {
+                        className: 'xiuxi',
+                        type: 'disabled',
+                    },
                     {
                         className: 'xiong',
                         type: 'middle'
@@ -72,22 +77,15 @@
                      {
                         className: 'tui',
                         type: 'middle'
-                    },
-                    {
-                        className: 'xiuxi',
-                        type: 'disabled',
                     }
-                ]
-                const index = date % list.length;
 
-                if (index > 0) {
-                    day = list[index - 1];
-                } else {
-                    day = list[list.length - 1]
-                }
+                ]
+
+                if (index === 4) index = 0;
+                 day = list[index];
+                 index ++;
                  day.topInfo = date;
                  if (date === new Date().getDate() && moneth === new Date().getMonth() ) {
-
                     day.topInfo = '今天'
                     day.className += ' today'
                  }
