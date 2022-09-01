@@ -55,11 +55,17 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/vant/3.5.2/vant.min.js"></script>
 <script>
     // 在 #app 标签下渲染一个按钮组件
+    function days(date) {
+            const currentYear = new Date().getFullYear().toString();
+            const hasTimestamp = new Date(date) - new Date(currentYear);
+            return Math.ceil(hasTimestamp / 86400000)
+    }
     const app = Vue.createApp({
           setup() {
             let index = 0;
             const formatter = (day) => {
                 const date = day.date.getDate();
+                const times = days(day.date);
                 const moneth =  day.date.getMonth();
                 const list = [
                      {
@@ -82,7 +88,7 @@
                 ]
 
                 if (index === 4) index = 0;
-                 day = list[index];
+                 day = list[times % 4];
                  index ++;
                  day.topInfo = date;
                  if (date === new Date().getDate() && moneth === new Date().getMonth() ) {
