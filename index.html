@@ -34,9 +34,23 @@
             background-position: bottom;
         }
         .xiuxi {
-            background: url('https://pic.imgdb.cn/item/62c8e996f54cd3f93738298a.gif') no-repeat;
-            background-size:76%;
-            background-position: bottom;
+            /*background: url('https://pic.imgdb.cn/item/62c8e996f54cd3f93738298a.gif') no-repeat;*/
+            /*background-size:76%;*/
+            /*background-position: bottom;*/
+            color: #07c160;
+        }
+        .xiuxi::after {
+            content: '休息';
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 16px;
+            font-weight: bold;
+
+            z-index: 2;
+            width: 100%;
+            pointer-events: none;
         }
         .today {
             font-weight: bold;
@@ -64,40 +78,30 @@
           setup() {
             let index = 0;
             const formatter = (day) => {
-                const date = day.date.getDate();
-                const times = days(day.date);
-                const moneth =  day.date.getMonth();
-                const list = [
+              const date = day.date.getDate();
+              const times = days(day.date);
+              const moneth =  day.date.getMonth();
+              const list = [
+                { className: 'bei', type: 'middle' },
+                { className: 'tui', type: 'middle' },
+                { className: 'xiuxi', type: 'disabled' },
+                { className: 'xiong', type: 'middle' },
+              ];
 
-                     {
-                        className: 'bei',
-                        type: 'middle'
-                    },
-                     {
-                        className: 'tui',
-                        type: 'middle'
-                    },
-                      {
-                        className: 'xiuxi',
-                        type: 'disabled',
-                      },
-                      {
-                        className: 'xiong',
-                        type: 'middle'
-                      },
+              if (index === 4) index = 0;
+              day = list[times % 4];
+              index++;
+              day.topInfo = date;
 
-                ]
+              if (date === new Date().getDate() && moneth === new Date().getMonth()) {
+                day.topInfo = '今天';
+                day.className += ' today';
+              }
 
-                if (index === 4) index = 0;
-                 day = list[times % 4];
-                 index ++;
-                 day.topInfo = date;
-                 if (date === new Date().getDate() && moneth === new Date().getMonth() ) {
-                    day.topInfo = '今天'
-                    day.className += ' today'
-                 }
-                return day;
+
+              return day;
             };
+
 
             return {
                 formatter,
