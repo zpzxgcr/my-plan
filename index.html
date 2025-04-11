@@ -68,14 +68,7 @@
                 const times = days(day.date);
                 const moneth =  day.date.getMonth();
                 const list = [
-                     {
-                        className: 'xiuxi',
-                        type: 'disabled',
-                    },
-                    {
-                        className: 'xiong',
-                        type: 'middle'
-                     },
+
                      {
                         className: 'bei',
                         type: 'middle'
@@ -83,7 +76,15 @@
                      {
                         className: 'tui',
                         type: 'middle'
-                    }
+                    },
+                      {
+                        className: 'xiuxi',
+                        type: 'disabled',
+                      },
+                      {
+                        className: 'xiong',
+                        type: 'middle'
+                      },
 
                 ]
 
@@ -105,7 +106,7 @@
         template: `
         <van-calendar
             safe-area-inset-top
-            color="#1989fa"
+            color="#ff001d"
             :formatter="formatter"
             :show-title="false"
             :poppable="false"
